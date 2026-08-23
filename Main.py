@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import router as items_router
+from router import router as items_router
 
 app = FastAPI(title="Item Store API", version="1.0.0")
 
