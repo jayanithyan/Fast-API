@@ -6,7 +6,11 @@ class ItemBase(BaseModel):
     name: str=Field(min_length=2, max_length=100)
     price: float = Field(gt=0)
     description: Optional[str] = None
-    offer: Optional[float] = None
+    offer: Optional[float] = Field(
+    default=None,
+    ge=0,
+    le=100
+)
 
 
 class ItemCreate(ItemBase):

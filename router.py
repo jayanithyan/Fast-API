@@ -12,7 +12,7 @@ def create_item(item: ItemCreate):
     items = load_items()
 
     new_item = {
-        "id": len(items) + 1,
+        "id": new_id = max([item["id"] for item in items], default=0) + 1,
         "name": item.name,
         "price": item.price,
         "description": item.description,
