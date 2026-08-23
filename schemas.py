@@ -7,3 +7,5 @@ class ItemBase(BaseModel):
     price: float
     description: Optional[str] = None
     offer: Optional[float] = None
+class ItemCreate(ItemBase):
+    pass
