@@ -14,14 +14,24 @@ class ItemCreate(ItemBase):
 
 
 class ItemUpdate(BaseModel):
-    name: Optional[str] = None
-    price: Optional[float] = None
+    name: Optional[str] = Field(
+        default=None,
+        min_length=2,
+        max_length=100
+    )
+
+    price: Optional[float] = Field(
+        default=None,
+        gt=0
+    )
+
     description: Optional[str] = None
+
     offer: Optional[float] = Field(
-    default=None,
-    ge=0,
-    le=100
-)
+        default=None,
+        ge=0,
+        le=100
+    )
 
 
 class ItemResponse(ItemBase):
