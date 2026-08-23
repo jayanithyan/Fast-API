@@ -6,10 +6,6 @@ from datetime import datetime
 router = APIRouter(prefix="/items", tags=["Items"])
 
 
-@router.get("/health")
-def items_health():
-    return {"status": "items router active"}
-
 
 @router.post("/", response_model=ItemResponse)
 def create_item(item: ItemCreate):
@@ -59,11 +55,23 @@ def sort_items(order: str = "asc"):
         key=lambda item: item["price"],
         reverse=order == "desc"
     )
-@router.get("/page")
-def get_items_page(skip: int = 0, limit: int = 10):
-    items = load_items()
 
     return items[skip:skip + limit]
+@router.get("/count")
+def count_items():
+    items = load_items()
+
+    return {"count": len(items)}
+@router.get("/average-price")
+def average_price():
+    items = load_items()
+
+    if not items:
+        return {"average_price": 0}
+
+    average = sum(item["price"] for item in items) / len(items)
+
+    return {"average_price": round(average, 2)}
 @router.get("/{item_id}", response_model=ItemResponse)
 def get_item(item_id: int):
     items = load_items()
@@ -93,21 +101,8 @@ def delete_item(item_id: int):
         status_code=404,
         detail="Item not found"
     )
-@router.get("/count")
-def count_items():
-    items = load_items()
 
-    return {"count": len(items)}
-@router.get("/average-price")
-def average_price():
-    items = load_items()
 
-    if not items:
-        return {"average_price": 0}
-
-    average = sum(item["price"] for item in items) / len(items)
-
-    return {"average_price": round(average, 2)}
 @router.put("/{item_id}", response_model=ItemResponse)
 def update_item(item_id: int, update: ItemUpdate):
     items = load_items()
