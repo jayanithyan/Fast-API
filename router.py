@@ -6,7 +6,6 @@ from datetime import datetime
 router = APIRouter(prefix="/items", tags=["Items"])
 
 
-
 @router.post("/", response_model=ItemResponse)
 def create_item(item: ItemCreate):
     items = load_items()
@@ -14,13 +13,13 @@ def create_item(item: ItemCreate):
     new_id = max([item["id"] for item in items], default=0) + 1
 
     new_item = {
-    "id": new_id,
-    "name": item.name,
-    "price": item.price,
-    "description": item.description,
-    "offer": item.offer,
-    "created_at": datetime.now().isoformat()
-                }
+        "id": new_id,
+        "name": item.name,
+        "price": item.price,
+        "description": item.description,
+        "offer": item.offer,
+        "created_at": datetime.now().isoformat()
+    }
 
     items.append(new_item)
     save_items(items)
@@ -32,22 +31,29 @@ def create_item(item: ItemCreate):
 def get_items():
     return load_items()
 
+
 @router.get("/search")
 def search_items(name: str):
     items = load_items()
 
     return [
-        item for item in items
+        item
+        for item in items
         if name.lower() in item["name"].lower()
     ]
+
+
 @router.get("/filter")
 def filter_items(max_price: float):
     items = load_items()
 
     return [
-        item for item in items
+        item
+        for item in items
         if item["price"] <= max_price
     ]
+
+
 @router.get("/sort")
 def sort_items(order: str = "asc"):
     items = load_items()
@@ -58,12 +64,14 @@ def sort_items(order: str = "asc"):
         reverse=order == "desc"
     )
 
-    return items[skip:skip + limit]
+
 @router.get("/count")
 def count_items():
     items = load_items()
 
     return {"count": len(items)}
+
+
 @router.get("/average-price")
 def average_price():
     items = load_items()
@@ -74,6 +82,8 @@ def average_price():
     average = sum(item["price"] for item in items) / len(items)
 
     return {"average_price": round(average, 2)}
+
+
 @router.get("/page")
 def get_items_page(
     skip: int = Query(0, ge=0),
@@ -82,6 +92,8 @@ def get_items_page(
     items = load_items()
 
     return items[skip:skip + limit]
+
+
 @router.get("/health")
 def items_health():
     items = load_items()
@@ -90,6 +102,8 @@ def items_health():
         "status": "healthy",
         "items": len(items)
     }
+
+
 @router.get("/{item_id}", response_model=ItemResponse)
 def get_item(item_id: int):
     items = load_items()
