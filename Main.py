@@ -9,3 +9,6 @@ app.include_router(items_router)
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+@router.get("/", response_model=list[ItemResponse])
+def get_items():
+    return load_items()
