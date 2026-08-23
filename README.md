@@ -10,3 +10,7 @@
 - Sort items
 - Pagination
 - Item statistics
+## Installation
+
+```bash
+pip install -r requirements.txt
