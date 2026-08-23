@@ -1,7 +1,12 @@
-# Simple Item Store API
+## Features
 
-A clean, modular REST API built with FastAPI and persistent JSON storage.
-
-## Installation
-```bash
-pip install -r requirements.txt
+- Create items
+- Get all items
+- Get item by ID
+- Update items
+- Delete items
+- Search items
+- Filter items by price
+- Sort items
+- Pagination
+- Item statistics
