@@ -17,7 +17,11 @@ class ItemUpdate(BaseModel):
     name: Optional[str] = None
     price: Optional[float] = None
     description: Optional[str] = None
-    offer: Optional[float] = None
+    offer: Optional[float] = Field(
+    default=None,
+    ge=0,
+    le=100
+)
 
 
 class ItemResponse(ItemBase):
