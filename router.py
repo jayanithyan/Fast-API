@@ -98,6 +98,16 @@ def count_items():
     items = load_items()
 
     return {"count": len(items)}
+@router.get("/average-price")
+def average_price():
+    items = load_items()
+
+    if not items:
+        return {"average_price": 0}
+
+    average = sum(item["price"] for item in items) / len(items)
+
+    return {"average_price": round(average, 2)}
 @router.put("/{item_id}", response_model=ItemResponse)
 def update_item(item_id: int, update: ItemUpdate):
     items = load_items()
