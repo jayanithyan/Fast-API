@@ -14,3 +14,6 @@ class ItemUpdate(BaseModel):
     price: Optional[float] = None
     description: Optional[str] = None
     offer: Optional[float] = None
+class ItemResponse(ItemBase):
+    id: int
+    created_at: str
