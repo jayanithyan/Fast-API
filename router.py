@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from schemas import ItemCreate, ItemUpdate, ItemResponse
 from storage import load_items, save_items
 from datetime import datetime
@@ -114,3 +114,11 @@ def update_item(item_id: int, update: ItemUpdate):
         status_code=404,
         detail="Item not found"
     )
+@router.get("/page")
+def get_items_page(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=50)
+):
+    items = load_items()
+
+    return items[skip:skip + limit]
