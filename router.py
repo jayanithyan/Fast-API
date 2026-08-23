@@ -39,3 +39,6 @@ def create_item(item: ItemCreate):
     }
 
     return new_item
+@router.get("/", response_model=list[ItemResponse])
+def get_items():
+    return items
