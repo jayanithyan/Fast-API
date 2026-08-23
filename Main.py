@@ -13,3 +13,9 @@ def root():
 
 
 app.include_router(items_router)
+@app.get("/info")
+def api_info():
+    return {
+        "name": "Item Store API",
+        "version": "1.0.0"
+    }
