@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 
 
 class ItemBase(BaseModel):
-    name: str
+    name: str=Field(min_length=2, max_length=100)
     price: float = Field(gt=0)
     description: Optional[str] = None
     offer: Optional[float] = None
