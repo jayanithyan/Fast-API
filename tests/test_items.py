@@ -23,3 +23,7 @@ def test_health():
 
     assert response.status_code == 200
     assert response.json()["name"] == "Phone"
+def test_search_items():
+    response = client.get("/items/search?name=Phone")
+
+    assert response.status_code == 200
