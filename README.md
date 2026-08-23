@@ -18,3 +18,16 @@ pip install -r requirements.txt
 
 ```bash
 uvicorn Main:app --reload
+## Example
+
+### Create Item
+
+POST `/items/`
+
+```json
+{
+    "name": "Laptop",
+    "price": 50000,
+    "description": "Programming laptop",
+    "offer": 10
+}
