@@ -55,3 +55,14 @@ def get_item(item_id: int):
         status_code=404,
         detail="Item not found"
     )
+@router.delete("/{item_id}")
+def delete_item(item_id: int):
+    for item in items:
+        if item["id"] == item_id:
+            items.remove(item)
+            return {"message": "Item deleted"}
+
+    raise HTTPException(
+        status_code=404,
+        detail="Item not found"
+    )
