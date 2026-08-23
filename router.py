@@ -74,6 +74,22 @@ def average_price():
     average = sum(item["price"] for item in items) / len(items)
 
     return {"average_price": round(average, 2)}
+@router.get("/page")
+def get_items_page(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=50)
+):
+    items = load_items()
+
+    return items[skip:skip + limit]
+@router.get("/health")
+def items_health():
+    items = load_items()
+
+    return {
+        "status": "healthy",
+        "items": len(items)
+    }
 @router.get("/{item_id}", response_model=ItemResponse)
 def get_item(item_id: int):
     items = load_items()
@@ -124,19 +140,3 @@ def update_item(item_id: int, update: ItemUpdate):
         status_code=404,
         detail="Item not found"
     )
-@router.get("/page")
-def get_items_page(
-    skip: int = Query(0, ge=0),
-    limit: int = Query(10, ge=1, le=50)
-):
-    items = load_items()
-
-    return items[skip:skip + limit]
-@router.get("/health")
-def items_health():
-    items = load_items()
-
-    return {
-        "status": "healthy",
-        "items": len(items)
-    }
