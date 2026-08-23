@@ -9,3 +9,8 @@ class ItemBase(BaseModel):
     offer: Optional[float] = None
 class ItemCreate(ItemBase):
     pass
+class ItemUpdate(BaseModel):
+    name: Optional[str] = None
+    price: Optional[float] = None
+    description: Optional[str] = None
+    offer: Optional[float] = None
