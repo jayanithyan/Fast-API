@@ -50,6 +50,15 @@ def filter_items(max_price: float):
         item for item in items
         if item["price"] <= max_price
     ]
+@router.get("/sort")
+def sort_items(order: str = "asc"):
+    items = load_items()
+
+    return sorted(
+        items,
+        key=lambda item: item["price"],
+        reverse=order == "desc"
+    )
 @router.get("/{item_id}", response_model=ItemResponse)
 def get_item(item_id: int):
     items = load_items()
