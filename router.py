@@ -4,6 +4,7 @@ from storage import load_items, save_items
 from datetime import datetime
 from schemas import ItemCreate, ItemResponse
 from datetime import datetime
+from fastapi import APIRouter, HTTPException
 
 router = APIRouter(prefix="/items", tags=["Items"])
 
@@ -39,6 +40,18 @@ def create_item(item: ItemCreate):
     }
 
     return new_item
+
 @router.get("/", response_model=list[ItemResponse])
 def get_items():
     return items
+
+@router.get("/{item_id}", response_model=ItemResponse)
+def get_item(item_id: int):
+    for item in items:
+        if item["id"] == item_id:
+            return item
+
+    raise HTTPException(
+        status_code=404,
+        detail="Item not found"
+    )
