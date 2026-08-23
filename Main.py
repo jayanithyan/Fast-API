@@ -3,9 +3,9 @@ from router import router as items_router
 
 app = FastAPI(
     title="Item Store API",
-    version="1.0.0"
+    version="1.0.0",
+    description="A simple API for managing items."
 )
-
 
 @app.get("/")
 def root():
