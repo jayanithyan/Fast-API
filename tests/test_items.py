@@ -27,3 +27,13 @@ def test_search_items():
     response = client.get("/items/search?name=Phone")
 
     assert response.status_code == 200
+def test_invalid_price():
+    response = client.post(
+        "/items/",
+        json={
+            "name": "Invalid",
+            "price": -100
+        }
+    )
+
+    assert response.status_code == 422
