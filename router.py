@@ -42,6 +42,14 @@ def search_items(name: str):
         item for item in items
         if name.lower() in item["name"].lower()
     ]
+@router.get("/filter")
+def filter_items(max_price: float):
+    items = load_items()
+
+    return [
+        item for item in items
+        if item["price"] <= max_price
+    ]
 @router.get("/{item_id}", response_model=ItemResponse)
 def get_item(item_id: int):
     items = load_items()
