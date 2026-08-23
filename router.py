@@ -93,8 +93,11 @@ def delete_item(item_id: int):
         status_code=404,
         detail="Item not found"
     )
+@router.get("/count")
+def count_items():
+    items = load_items()
 
-
+    return {"count": len(items)}
 @router.put("/{item_id}", response_model=ItemResponse)
 def update_item(item_id: int, update: ItemUpdate):
     items = load_items()
