@@ -4,6 +4,8 @@ from storage import load_items, save_items
 from datetime import datetime
 from schemas import ItemCreate, ItemResponse
 from datetime import datetime
+from schemas import ItemCreate, ItemUpdate, ItemResponse
+
 from fastapi import APIRouter, HTTPException
 
 router = APIRouter(prefix="/items", tags=["Items"])
@@ -61,6 +63,21 @@ def delete_item(item_id: int):
         if item["id"] == item_id:
             items.remove(item)
             return {"message": "Item deleted"}
+
+    raise HTTPException(
+        status_code=404,
+        detail="Item not found"
+    )
+@router.put("/{item_id}", response_model=ItemResponse)
+def update_item(item_id: int, update: ItemUpdate):
+    for item in items:
+        if item["id"] == item_id:
+            data = update.model_dump(exclude_unset=True)
+
+            for key, value in data.items():
+                item[key] = value
+
+            return item
 
     raise HTTPException(
         status_code=404,
