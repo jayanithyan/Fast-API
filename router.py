@@ -11,16 +11,16 @@ router = APIRouter(prefix="/items", tags=["Items"])
 def create_item(item: ItemCreate):
     items = load_items()
 
-new_id = max([item["id"] for item in items], default=0) + 1
+    new_id = max([item["id"] for item in items], default=0) + 1
 
-new_item = {
+    new_item = {
     "id": new_id,
     "name": item.name,
     "price": item.price,
     "description": item.description,
     "offer": item.offer,
     "created_at": datetime.now().isoformat()
-}
+                }
 
     items.append(new_item)
     save_items(items)
