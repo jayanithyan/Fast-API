@@ -12,9 +12,10 @@ router = APIRouter(prefix="/items", tags=["Items"])
 def items_health():
     return {"status": "items router active"}
 @router.post("/", response_model=ItemResponse)
+items = []
 def create_item(item: ItemCreate):
     items = load_items()
-
+    
     new_item = {
         "id": len(items) + 1,
         "name": item.name,
@@ -23,9 +24,7 @@ def create_item(item: ItemCreate):
         "offer": item.offer,
         "created_at": datetime.now().isoformat()
     }
-
     items.append(new_item)
-    save_items(items)
 
     return new_item
 @router.post("/", response_model=ItemResponse)
