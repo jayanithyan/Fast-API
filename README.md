@@ -14,3 +14,7 @@
 
 ```bash
 pip install -r requirements.txt
+## Run
+
+```bash
+uvicorn Main:app --reload
