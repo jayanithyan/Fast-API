@@ -59,6 +59,11 @@ def sort_items(order: str = "asc"):
         key=lambda item: item["price"],
         reverse=order == "desc"
     )
+@router.get("/page")
+def get_items_page(skip: int = 0, limit: int = 10):
+    items = load_items()
+
+    return items[skip:skip + limit]
 @router.get("/{item_id}", response_model=ItemResponse)
 def get_item(item_id: int):
     items = load_items()
