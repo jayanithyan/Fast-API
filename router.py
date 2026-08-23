@@ -135,3 +135,11 @@ def get_items_page(
     items = load_items()
 
     return items[skip:skip + limit]
+@router.get("/health")
+def items_health():
+    items = load_items()
+
+    return {
+        "status": "healthy",
+        "items": len(items)
+    }
