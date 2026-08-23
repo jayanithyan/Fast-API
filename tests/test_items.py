@@ -12,7 +12,7 @@ def test_health():
     response = client.get("/items/health")
 
     assert response.status_code == 200
-    def test_create_item():
+def test_create_item():
     response = client.post(
         "/items/",
         json={
