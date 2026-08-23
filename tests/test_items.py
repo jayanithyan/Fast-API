@@ -12,3 +12,14 @@ def test_health():
     response = client.get("/items/health")
 
     assert response.status_code == 200
+    def test_create_item():
+    response = client.post(
+        "/items/",
+        json={
+            "name": "Phone",
+            "price": 20000
+        }
+    )
+
+    assert response.status_code == 200
+    assert response.json()["name"] == "Phone"
