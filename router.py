@@ -34,7 +34,14 @@ def create_item(item: ItemCreate):
 def get_items():
     return load_items()
 
+@router.get("/search")
+def search_items(name: str):
+    items = load_items()
 
+    return [
+        item for item in items
+        if name.lower() in item["name"].lower()
+    ]
 @router.get("/{item_id}", response_model=ItemResponse)
 def get_item(item_id: int):
     items = load_items()
